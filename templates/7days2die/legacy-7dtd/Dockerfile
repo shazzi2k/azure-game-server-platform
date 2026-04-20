@@ -6,28 +6,24 @@ RUN dpkg --add-architecture i386 && \
     wget \
     ca-certificates \
     lib32gcc-s1 \
-    lib32stdc++6 \
-    libcurl4 \
-    libcurl4:i386 \
-    libsdl2-2.0-0 \
-    libsdl2-2.0-0:i386 \
-    libopenal1 \
-    libopenal1:i386 \
-    libgl1 \
-    libgl1:i386 && \
-    update-ca-certificates && \
+    lib32stdc++6 && \
     rm -rf /var/lib/apt/lists/*
+
+RUN useradd -m steam
 
 # install steamcmd
 RUN mkdir -p /steamcmd && \
     cd /steamcmd && \
     wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz && \
     tar -xvzf steamcmd_linux.tar.gz && \
-    rm steamcmd_linux.tar.gz
+    rm steamcmd_linux.tar.gz && \
+    chmod +x /steamcmd/steamcmd.sh && \
+    chown -R steam:steam /steamcmd
 
-WORKDIR /
+WORKDIR /home/steam/7days
 
-COPY start-server.sh /start-server.sh
-RUN chmod +x /start-server.sh
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-CMD ["/start-server.sh"]
+USER steam
+ENTRYPOINT ["/start.sh"]
