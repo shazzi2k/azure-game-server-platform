@@ -59,3 +59,18 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-07-01' = {
 
   }
 }
+resource vmExtension 'Microsoft.Compute/virtualMachines/extensions@2023-03-01' = {
+  name: '${vm.name}/bootstrap'
+  location: location
+  properties: {
+    publisher: 'Microsoft.Azure.Extensions'
+    type: 'CustomScript'
+    typeHandlerVersion: '2.1'
+    settings: {
+      fileUris: [
+        'https://raw.githubusercontent.com/shazzi2k/azure-game-server-platform/main/scripts/bootstrap.sh'
+      ]
+      commandToExecute: 'bash bootstrap.sh'
+    }
+  }
+}
