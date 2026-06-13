@@ -11,7 +11,7 @@ The project was created to demonstrate practical Azure administration, security,
 
 ## Architecture
 
-![Architecture  diagram]("images\architecture.png")
+![Architecture  diagram]("azure-game-server-platform\images\architecture.png")
 
 ## Features
 
@@ -67,27 +67,27 @@ The project was created to demonstrate practical Azure administration, security,
 
 ### Resource Group Overview
 
-![RG overview]("images\rgoverview.png")
+![RG overview]("azure-game-server-platform\images\rgoverview.png")
 
 ### Key Vault RBAC Assignment
 
-![KV RBAC]("images\managedID+rbac.png")
+![KV RBAC]("azure-game-server-platform\images\managedID+rbac.png")
 
 ### Azure Monitor Agent Installation
 
-![AMA]("images\azmonitoragent.png")
+![AMA]("azure-game-server-platform\images\azmonitoragent.png")
 
 ### Data Collection Rule Association
 
-![DCR]("images\dcrassociation.png")
+![DCR]("azure-game-server-platform\images\dcrassociation.png")
 
 ### Log Analytics Syslog Collection
 
-![LAW results]("images\logqueryresults.png")
+![LAW results]("azure-game-server-platform\images\logqueryresults.png")
 
 ### Infrusture as code - Bicep
 
-![VSS Bicep]("images\vssbicep.png")
+![VSS Bicep]("azure-game-server-platform\images\vssbicep.png")
 
 ## Repository Structure
 
