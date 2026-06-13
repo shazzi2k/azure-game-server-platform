@@ -11,7 +11,7 @@ The project was created to demonstrate practical Azure administration, security,
 
 ## Architecture
 
-![Architecture  diagram]("images\imagesnew\architecture.png")
+![Architecture  diagram]("images\architecture.png")
 
 ## Features
 
@@ -67,27 +67,27 @@ The project was created to demonstrate practical Azure administration, security,
 
 ### Resource Group Overview
 
-![RG overview]("images\imagesnew\rgoverview.png")
+![RG overview]("images\rgoverview.png")
 
 ### Key Vault RBAC Assignment
 
-![KV RBAC]("images\imagesnew\managedID+rbac.png")
+![KV RBAC]("images\managedID+rbac.png")
 
 ### Azure Monitor Agent Installation
 
-![AMA]("images\imagesnew\azmonitoragent.png")
+![AMA]("images\azmonitoragent.png")
 
 ### Data Collection Rule Association
 
-![DCR]("images\imagesnew\dcrassociation.png")
+![DCR]("images\dcrassociation.png")
 
 ### Log Analytics Syslog Collection
 
-![LAW results]("images\imagesnew\logqueryresults.png")
+![LAW results]("images\logqueryresults.png")
 
 ### Infrusture as code - Bicep
 
-![VSS Bicep]("images\imagesnew\vssbicep.png")
+![VSS Bicep]("images\vssbicep.png")
 
 ## Repository Structure
 
