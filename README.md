@@ -18,7 +18,7 @@ Future implementation will provide:
 
 ## Architecture
 
-![Architecture](images\architecture.png)
+![Architecture](images/architecture.png)
 
 ## Features
 
@@ -74,27 +74,27 @@ Future implementation will provide:
 
 ### Resource Group Overview
 
-![Resource Group Overview](images\rgoverview.png)
+![Resource Group Overview](images/rgoverview.png)
 
 ### Key Vault RBAC Assignment
 
-![KV RBAC](images\managedID+rbac.png)
+![KV RBAC](images/managedID+rbac.png)
 
 ### Azure Monitor Agent Installation
 
-![AMA](images\azmonitoragent.png)
+![AMA](images/azmonitoragent.png)
 
 ### Data Collection Rule Association
 
-![DCR](images\dcrassociation.png)
+![DCR](images/dcrassociation.png)
 
 ### Log Analytics Syslog Collection
 
-![LAW results](images\logqueryresults.png)
+![LAW results](images/logqueryresults.png)
 
 ### Infrusture as code - Bicep
 
-![VSS Bicep](images\vssbicep.png)
+![VSS Bicep](images/vssbicep.png)
 
 ## Repository Structure
 
