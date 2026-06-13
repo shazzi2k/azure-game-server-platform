@@ -287,4 +287,4 @@ This project demonstrates a fully automated, self-hosted game infrastructure cap
 ### 🟢 Server Status
 ![Server Online](images/server-status-example.png)
 
->>>>>>> 9b9e563202f3fec969f464cd5e36d27db87b45fa
+
