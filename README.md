@@ -1,17 +1,24 @@
-<<<<<<< HEAD
+
 # Azure Game Server Platform
 
-## Overview
+## Project Overview
 
-This project demonstrates the design and deployment of a secure Azure-hosted game server platform using Infrastructure as Code (IaC) with Bicep.
+The goal of this project is to build a cloud-hosted game server platform on Azure.
 
-The platform deploys a Linux virtual machine for game hosting alongside supporting Azure services including networking, security, secrets management, monitoring, and logging.
+Current implementation focuses on:
+- Infrastructure as Code
+- Security
+- Monitoring
+- Observability
 
-The project was created to demonstrate practical Azure administration, security, monitoring, and automation skills relevant to cloud engineering and Azure administrator roles.
+Future implementation will provide:
+- Web dashboard
+- Discord integration
+- Automated game server management
 
 ## Architecture
 
-![Architecture  diagram]("azure-game-server-platform\images\architecture.png")
+![Architecture  diagram]("images\architecture.png")
 
 ## Features
 
@@ -67,27 +74,27 @@ The project was created to demonstrate practical Azure administration, security,
 
 ### Resource Group Overview
 
-![RG overview]("azure-game-server-platform\images\rgoverview.png")
+![RG overview]("images\rgoverview.png")
 
 ### Key Vault RBAC Assignment
 
-![KV RBAC]("azure-game-server-platform\images\managedID+rbac.png")
+![KV RBAC]("images\managedID+rbac.png")
 
 ### Azure Monitor Agent Installation
 
-![AMA]("azure-game-server-platform\images\azmonitoragent.png")
+![AMA]("images\azmonitoragent.png")
 
 ### Data Collection Rule Association
 
-![DCR]("azure-game-server-platform\images\dcrassociation.png")
+![DCR]("images\dcrassociation.png")
 
 ### Log Analytics Syslog Collection
 
-![LAW results]("azure-game-server-platform\images\logqueryresults.png")
+![LAW results]("images\logqueryresults.png")
 
 ### Infrusture as code - Bicep
 
-![VSS Bicep]("azure-game-server-platform\images\vssbicep.png")
+![VSS Bicep]("images\vssbicep.png")
 
 ## Repository Structure
 
