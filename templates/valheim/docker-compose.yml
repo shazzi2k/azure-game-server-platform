@@ -1,0 +1,21 @@
+services:
+  valheim:
+    build: .
+    restart: unless-stopped
+
+    ports:
+      - "2456:2456/udp"
+      - "2457:2457/udp"
+      - "2458:2458/udp"
+
+    environment:
+      - SERVER_NAME=valheim
+      - WORLD_NAME=Dedicated
+      - SERVER_PASSWORD=changeme
+      - SERVER_PUBLIC=1
+ 
+    volumes:
+      - ./data:/home/steam
+
+    mem_limit: 4g
+    stop_grace_period: 2m
