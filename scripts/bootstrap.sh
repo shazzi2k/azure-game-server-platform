@@ -8,6 +8,7 @@ apt update -y
 
 # Install dependencies
 apt install -y docker.io git curl
+python3 python3-pip
 
 # Enable docker
 systemctl enable docker
@@ -30,5 +31,10 @@ cd /srv/platform
 
 # Ensure structure exists
 mkdir -p instances
+
+# Install agent requirements
+if [ -f "/srv/platform/agent/requirements.txt" ]; then
+    pip3 install -r /srv/platform/agent/requirements.txt
+fi
 
 echo "=== PLATFORM READY ==="
