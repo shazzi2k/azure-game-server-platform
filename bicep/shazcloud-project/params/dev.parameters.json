@@ -12,8 +12,9 @@
     "nsgName": {"value": "shazcloud-nsg"},
     "vmName": {"value": "shazcloud"},
     "adminUsername": {"value": "shazadmin1"},
-    "adminPassword": {"value": "P@ssw0rd1234"},
-    "vmSkuList": {"value": ["Standard_D4as_v4","Standard_D4s_v3"]}
-    
+    "adminPassword": {"value": "Changeme123"},
+    "vmSkuList": {"value": ["Standard_D4as_v4","Standard_D4s_v3"]},
+    "keyVaultName": { "value": "shazcloud-kv" },
+    "workspaceName": { "value": "shazcloud-law" }
    }
 }

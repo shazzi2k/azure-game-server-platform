@@ -8,7 +8,7 @@ apt update -y
 
 # Install dependencies
 apt install -y docker.io git curl
-python3 python3-pip
+apt install -y python3 python3-pip
 
 # Enable docker
 systemctl enable docker
