@@ -7,6 +7,7 @@ import platform
 import a2s
 import requests
 import threading
+import time
 
 app = Flask(__name__)
 
@@ -70,8 +71,64 @@ def system():
         "disk_total": round(psutil.disk_usage('/').total / (1024**3), 2)
     }
 
+@app.route('/api/uptime')
+def uptime():
+
+    return {
+        "uptime_seconds": int(time.time() - psutil.boot_time())
+    }
+
+@app.route('/api/version')
+def version():
+
+    return {
+        "version": "0.2.0"
+    }
+
 ##End VM API
 ##API docker containers
+
+@app.route('/api/docker/version')
+def docker_version():
+
+    result = subprocess.run(
+        ["docker", "--version"],
+        capture_output=True,
+        text=True
+    )
+
+    return {
+        "version": result.stdout.strip()
+    }
+
+@app.route('/api/docker/info')
+def docker_info():
+
+    result = subprocess.run(
+        ["docker", "info", "--format", "{{json .}}"],
+        capture_output=True,
+        text=True
+    )
+
+    return result.stdout
+
+@app.route('/api/docker/logs/<name>')
+def container_logs(name):
+
+    if name not in VALID_CONTAINERS:
+        return jsonify({"error": "invalid container"}), 400
+
+    result = subprocess.run(
+        ["docker", "logs", "--tail", "100", name],
+        capture_output=True,
+        text=True
+    )
+
+    return {
+        "container": name,
+        "logs": result.stdout
+    }
+
 
 @app.route('/api/containers')
 def get_containers():
@@ -84,10 +141,10 @@ def get_containers():
 
     running = result.stdout.splitlines()
 
-    containers = ["zomboid", "7days2die", "valheim"]
+    
 
     status = {}
-    for name in containers:
+    for name in VALID_CONTAINERS:
         status[name] = "running" if name in running else "stopped"
 
     return status
