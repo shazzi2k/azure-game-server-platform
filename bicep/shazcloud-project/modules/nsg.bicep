@@ -22,6 +22,20 @@ resource NSG 'Microsoft.Network/networkSecurityGroups@2022-07-01' = {
           direction: 'Inbound'
         }
       }
+      {
+        name: 'AllowHTTP'
+        properties: {
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '5000'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 110
+          direction: 'Inbound'
+      
+        }
+      }
     ]
   }
 }
