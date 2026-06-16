@@ -49,10 +49,20 @@ def root():
 ##End TEST ENDPOINTS
 ##VM API
 
+def get_cpu_name():
+    try:
+        with open("/proc/cpuinfo") as f:
+            for line in f:
+                if "model name" in line:
+                    return line.split(":")[1].strip()
+    except:
+        return "Unknown CPU"
+
 @app.route("/api/system")
 def system():
     return {
         "hostname": socket.gethostname(),
+        "cpu_name": get_cpu_name(),
         "cpu": psutil.cpu_percent(),
         "ram_used": round(psutil.virtual_memory().used / (1024**3), 2),
         "ram_total": round(psutil.virtual_memory().total / (1024**3), 2),
