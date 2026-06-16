@@ -66,9 +66,6 @@ def system():
 @app.route('/api/containers')
 def get_containers():
     
-    if name not in VALID_CONTAINERS:
-        return jsonify({"error": "invalid container"}), 400
-
     result = subprocess.run(
         ["docker", "ps", "--format", "{{.Names}}"],
         capture_output=True,
@@ -91,9 +88,6 @@ def get_containers():
 @app.route('/api/docker/start/<name>', methods=['POST'])
 def start_container(name):
 
-    if name not in VALID_CONTAINERS:
-        return jsonify({"error": "invalid container"}), 400
-    
     result = subprocess.run(
         ["docker", "start", name],
         capture_output=True,
@@ -105,9 +99,7 @@ def start_container(name):
 
 @app.route('/api/docker/stop/<name>', methods=['POST'])
 def stop_container(name):
-    if name not in VALID_CONTAINERS:
-        return jsonify({"error": "invalid container"}), 400
-
+   
     result = subprocess.run(
         ["docker", "stop", name],
         capture_output=True,
@@ -119,9 +111,7 @@ def stop_container(name):
 
 @app.route('/api/docker/restart/<name>', methods=['POST'])
 def restart_container(name):
-    if name not in VALID_CONTAINERS:
-        return jsonify({"error": "invalid container"}), 400
-
+   
     result = subprocess.run(
         ["docker", "restart", name],
         capture_output=True,
