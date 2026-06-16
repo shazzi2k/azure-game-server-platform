@@ -46,7 +46,21 @@ def root():
         "service": "shazcloud-agent",
         "status": "online"
     }
+##End TEST ENDPOINTS
+##VM API
 
+@app.route("/api/system")
+def system():
+    return {
+        "hostname": socket.gethostname(),
+        "cpu": psutil.cpu_percent(),
+        "ram_used": round(psutil.virtual_memory().used / (1024**3), 2),
+        "ram_total": round(psutil.virtual_memory().total / (1024**3), 2),
+        "disk_used": round(psutil.disk_usage('/').used / (1024**3), 2),
+        "disk_total": round(psutil.disk_usage('/').total / (1024**3), 2)
+    }
+
+##End VM API
 ##API docker containers
 
 @app.route('/api/containers')
