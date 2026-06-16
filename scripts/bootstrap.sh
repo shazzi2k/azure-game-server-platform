@@ -7,34 +7,51 @@ echo "=== BOOTSTRAP START ==="
 apt update -y
 
 # Install dependencies
-apt install -y docker.io git curl
-apt install -y python3 python3-pip
+apt install -y docker.io git curl python3 python3-pip python3-venv
 
 # Enable docker
 systemctl enable docker
 systemctl start docker
 
-# Add user to docker group (optional but useful)
-usermod -aG docker $USER || true
-
 # Create base directory
 mkdir -p /srv/platform
 
-# Clone your repo
+# Clone repo
 if [ ! -d "/srv/platform/.git" ]; then
     git clone https://github.com/shazzi2k/azure-game-server-platform /srv/platform
 else
     cd /srv/platform && git pull
 fi
 
-cd /srv/platform
+# Ownership
+chown -R shazadmin1:shazadmin1 /srv/platform
 
-# Ensure structure exists
-mkdir -p instances
+# Create venv
+python3 -m venv /srv/platform/agent/venv
 
-# Install agent requirements
-if [ -f "/srv/platform/agent/requirements.txt" ]; then
-    pip3 install -r /srv/platform/agent/requirements.txt
-fi
+# Install requirements into venv
+/srv/platform/agent/venv/bin/pip install --upgrade pip
+/srv/platform/agent/venv/bin/pip install -r /srv/platform/agent/requirements.txt
+
+# Create service
+cat > /etc/systemd/system/shazcloud-agent.service <<EOF
+[Unit]
+Description=ShazCloud Agent
+After=network.target
+
+[Service]
+WorkingDirectory=/srv/platform/agent
+ExecStart=/srv/platform/agent/venv/bin/python /srv/platform/agent/app.py
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable service
+systemctl daemon-reload
+systemctl enable shazcloud-agent
+systemctl restart shazcloud-agent
 
 echo "=== PLATFORM READY ==="
