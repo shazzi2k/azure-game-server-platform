@@ -11,7 +11,7 @@ if [ ! -f /home/steam/valheim/valheim_server.x86_64 ]; then
     /steamcmd/steamcmd.sh \
         +force_install_dir /home/steam/valheim \
         +login anonymous \
-        +app_update 896660 validate \
+        +app_update 896660  \
         +quit
 fi
 

@@ -8,7 +8,7 @@ if [ ! -f /home/steam/7days/startserver.sh ]; then
     echo "Installing 7DTD server..."
     /steamcmd/steamcmd.sh +force_install_dir /home/steam/7days \
         +login anonymous\
-        +app_update 294420 validate \
+        +app_update 294420  \
         +quit
 fi
 

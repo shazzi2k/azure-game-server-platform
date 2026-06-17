@@ -213,6 +213,34 @@ def start_template(template):
 ## End of Docker templates APIs
 ##API docker containers
 
+@app.route("/api/containerstats")
+def container_stats():
+
+    result = subprocess.run(
+        [
+            "docker",
+            "stats",
+            "--no-stream",
+            "--format",
+            "{{.Name}}|{{.CPUPerc}}|{{.MemUsage}}"
+        ],
+        capture_output=True,
+        text=True
+    )
+
+    stats = {}
+
+    for line in result.stdout.splitlines():
+
+        name, cpu, mem = line.split("|")
+
+        stats[name] = {
+            "cpu": cpu,
+            "memory": mem
+        }
+
+    return jsonify(stats)
+
 @app.route('/api/docker/version')
 def docker_version():
 
@@ -244,7 +272,7 @@ def container_logs(name):
         return jsonify({"error": "invalid container"}), 400
 
     result = subprocess.run(
-        ["docker", "logs", "--tail", "100", name],
+        ["docker", "logs", "--tail", "25", name],
         capture_output=True,
         text=True
     )

@@ -11,7 +11,7 @@ if [ ! -f /pz/start-server.sh ]; then
     /steamcmd/steamcmd.sh \
         +force_install_dir /pz \
         +login anonymous \
-        +app_update 380870 validate \
+        +app_update 380870  \
         +quit
 fi
 
