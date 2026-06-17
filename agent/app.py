@@ -87,20 +87,7 @@ def version():
         "version": "0.2.0"
     }
 
-import json
-import subprocess
 
-@app.route('/api/templates')
-def templates():
-
-    return {
-        "templates": [
-            "zomboid",
-            "valheim",
-            "factorio",
-            "7days2die"
-        ]
-    }
 
 
 ##End VM API
