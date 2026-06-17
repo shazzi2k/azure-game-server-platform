@@ -27,12 +27,17 @@ DOCKER_GAMES = {
     "valheim": {
         "ip": "127.0.0.1",
         "port": 2457
+    },
+    "factorio": {
+        "ip": "127.0.0.1",
+        "port": 34197
     }
 }
 VALID_CONTAINERS = [
     "zomboid",
     "7days2die",
-    "valheim"
+    "valheim",
+    "factorio"
 ]
 
 
@@ -147,25 +152,62 @@ def deploy_template(template):
 
 @app.route("/api/start/<template>", methods=["POST"])
 def start_template(template):
+
     if template not in VALID_CONTAINERS:
         return jsonify({"error": "invalid template"}), 400
 
     result = subprocess.run(
-        ["docker", "start", template],
+        ["docker", "ps", "-a", "--format", "{{.Names}}"],
         capture_output=True,
         text=True
     )
 
-    if result.returncode != 0:
-        return jsonify({
-            "status": "failed",
-            "output": result.stderr
-        }), 500
+    containers = result.stdout.splitlines()
 
-    return jsonify({
-        "status": "started",
-        "template": template
-    })
+    if template in containers:
+
+        result = subprocess.run(
+            ["docker", "start", template],
+            capture_output=True,
+            text=True
+        )
+
+        return jsonify({
+            "status": "started",
+            "template": template
+        })
+
+    if template == "zomboid":
+
+        result = subprocess.run(
+            [
+                "docker",
+                "run",
+                "-d",
+                "--name",
+                "zomboid",
+                "-e", "SERVER_NAME=ShazCloud",
+                "-e", "ADMIN_PASSWORD=changeme",
+                "-p", "16261:16261/udp",
+                "-p", "16262:16262/udp",
+                "-p", "8766:8766/udp",
+                "-p", "8767:8767/udp",
+                "zomboid"
+            ],
+            capture_output=True,
+            text=True
+        )
+
+        if result.returncode != 0:
+            return jsonify({
+                "status": "failed",
+                "output": result.stderr
+            }), 500
+
+        return jsonify({
+            "status": "deployed",
+            "template": template
+        })
 
 
 ## End of Docker templates APIs
