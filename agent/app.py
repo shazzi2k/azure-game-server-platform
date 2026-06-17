@@ -8,6 +8,8 @@ import a2s
 import requests
 import threading
 import time
+import json
+
 
 app = Flask(__name__)
 
@@ -85,7 +87,79 @@ def version():
         "version": "0.2.0"
     }
 
+import json
+import subprocess
+
+@app.route('/api/templates')
+def templates():
+
+    return {
+        "templates": [
+            "zomboid",
+            "valheim",
+            "factorio",
+            "7days2die"
+        ]
+    }
+
+
 ##End VM API
+## STart of Docker templates APIs
+
+
+@app.route('/api/templates')
+def templates():
+
+    return {
+        "templates": [
+            "zomboid",
+            "valheim",
+            "factorio",
+            "7days2die"
+        ]
+    }
+
+
+@app.route('/api/deploy/<template>', methods=['POST'])
+def deploy_template(template):
+
+    valid_templates = [
+        "zomboid",
+        "valheim",
+        "factorio",
+        "7days2die"
+    ]
+
+    if template not in valid_templates:
+        return jsonify({"error": "invalid template"}), 400
+
+    template_path = f"/srv/platform/templates/{template}"
+
+    build = subprocess.run(
+        [
+            "docker",
+            "build",
+            "-t",
+            template,
+            template_path
+        ],
+        capture_output=True,
+        text=True
+    )
+
+    if build.returncode != 0:
+        return jsonify({
+            "status": "failed",
+            "output": build.stderr
+        }), 500
+
+    return jsonify({
+        "status": "installed",
+        "template": template
+    })
+
+
+## End of Docker templates APIs
 ##API docker containers
 
 @app.route('/api/docker/version')
@@ -141,7 +215,6 @@ def get_containers():
 
     running = result.stdout.splitlines()
 
-    
 
     status = {}
     for name in VALID_CONTAINERS:

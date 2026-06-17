@@ -9,8 +9,8 @@ mkdir -p /pz
 if [ ! -f /pz/start-server.sh ]; then
     echo "Installing Zomboid server..."
     /steamcmd/steamcmd.sh \
-        +login anonymous \
         +force_install_dir /pz \
+        +login anonymous \
         +app_update 380870 validate \
         +quit
 fi

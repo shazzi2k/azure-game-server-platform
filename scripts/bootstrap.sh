@@ -8,7 +8,7 @@ apt update -y
 
 # Install dependencies
 apt install -y docker.io git curl python3 python3-pip python3-venv
-
+apt install -y docker-compose-plugin
 # Enable docker
 systemctl enable docker
 systemctl start docker

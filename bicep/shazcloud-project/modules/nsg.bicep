@@ -25,6 +25,7 @@ resource NSG 'Microsoft.Network/networkSecurityGroups@2022-07-01' = {
       {
         name: 'AllowHTTP'
         properties: {
+          description: 'testflask allow'
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '5000'
@@ -34,6 +35,28 @@ resource NSG 'Microsoft.Network/networkSecurityGroups@2022-07-01' = {
           priority: 110
           direction: 'Inbound'
       
+        }
+      }
+      {
+        name: 'zomboidports'
+        properties: {
+          description: 'zomboid ports allow'
+          protocol: 'UDP'
+          sourcePortRange: '*'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 120
+          direction: 'Inbound'
+          sourcePortRanges: []
+          destinationPortRanges: [
+            '8767'
+            '8766'
+            '16261'
+            '16262'
+          ]
+          sourceAddressPrefixes: []
+          destinationAddressPrefixes: []
         }
       }
     ]
