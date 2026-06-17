@@ -213,8 +213,8 @@ def start_template(template):
 ## End of Docker templates APIs
 ##API docker containers
 
-@app.route("/api/containerstats")
-def container_stats():
+@app.route("/api/docker-stats")
+def docker_stats():
 
     result = subprocess.run(
         [
