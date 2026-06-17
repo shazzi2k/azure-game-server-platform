@@ -33,11 +33,11 @@ RUN mkdir -p /steamcmd && \
     rm steamcmd_linux.tar.gz
 
 # Install script
-COPY install.txt /install.txt
+#COPY install.txt /install.txt
 
 # Install game
-RUN mkdir -p /pz && \
-    /steamcmd/steamcmd.sh +runscript /install.txt
+#RUN mkdir -p /pz && \
+    #/steamcmd/steamcmd.sh +runscript /install.txt
 
 # 🔥 ADD THIS SECTION
 COPY start-server.sh /start-server.sh
