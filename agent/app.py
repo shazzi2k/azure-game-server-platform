@@ -145,6 +145,28 @@ def deploy_template(template):
         "template": template
     })
 
+@app.route("/api/start/<template>", methods=["POST"])
+def start_template(template):
+    if template not in VALID_CONTAINERS:
+        return jsonify({"error": "invalid template"}), 400
+
+    result = subprocess.run(
+        ["docker", "start", template],
+        capture_output=True,
+        text=True
+    )
+
+    if result.returncode != 0:
+        return jsonify({
+            "status": "failed",
+            "output": result.stderr
+        }), 500
+
+    return jsonify({
+        "status": "started",
+        "template": template
+    })
+
 
 ## End of Docker templates APIs
 ##API docker containers
