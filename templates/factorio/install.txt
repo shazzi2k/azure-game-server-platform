@@ -1,0 +1,10 @@
+@ShutdownOnFailedCommand 1
+@NoPromptForPassword 1
+
+force_install_dir /factorio
+
+login anonymous
+
+app_update 600760 validate
+
+quit
