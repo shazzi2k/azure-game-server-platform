@@ -132,7 +132,8 @@ def deploy_template(template):
 
     build = subprocess.run(
         [
-            "docker-compose",
+            "docker",
+            "compose",
             "build"
         ],
         cwd=template_path,
@@ -153,54 +154,34 @@ def deploy_template(template):
 
 @app.route("/api/start/<template>", methods=["POST"])
 def start_template(template):
-    template_path = f"/srv/platform/templates/{template}"
+
     if template not in VALID_CONTAINERS:
         return jsonify({"error": "invalid template"}), 400
 
+    template_path = f"/srv/platform/templates/{template}"
+
     result = subprocess.run(
-        ["docker", "ps", "-a", "--format", "{{.Names}}"],
+        [
+            "docker",
+            "compose",
+            "up",
+            "-d"
+        ],
+        cwd=template_path,
         capture_output=True,
         text=True
     )
 
-    containers = result.stdout.splitlines()
-
-    if template in containers:
-
-        result = subprocess.run(
-            ["docker", "start", template],
-            capture_output=True,
-            text=True
-        )
-
+    if result.returncode != 0:
         return jsonify({
-            "status": "started",
-            "template": template
-        })
+            "status": "failed",
+            "output": result.stderr
+        }), 500
 
-    if template == "zomboid":
-
-        result = subprocess.run(
-            [
-                "docker-compose",
-                "up",
-                "-d"
-            ],
-            cwd=template_path,
-            capture_output=True,
-            text=True
-        )
-
-        if result.returncode != 0:
-            return jsonify({
-                "status": "failed",
-                "output": result.stderr
-            }), 500
-
-        return jsonify({
-            "status": "deployed",
-            "template": template
-        })
+    return jsonify({
+        "status": "started",
+        "template": template
+    })
 
 
 ## End of Docker templates APIs

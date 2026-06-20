@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+
+  factorio:
+
+    build: .
+
+    container_name: factorio
+
+    ports:
+      - "34197:34197/udp"
+
+    volumes:
+      - factorio-data:/factorio
+
+    restart: unless-stopped
+
+volumes:
+
+  factorio-data:
