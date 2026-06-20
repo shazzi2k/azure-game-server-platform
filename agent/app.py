@@ -1,3 +1,5 @@
+
+
 from flask import Flask, render_template, jsonify, session, redirect, request
 import os
 import subprocess
@@ -9,6 +11,7 @@ import requests
 import threading
 import time
 import json
+
 
 
 app = Flask(__name__)
@@ -129,12 +132,10 @@ def deploy_template(template):
 
     build = subprocess.run(
         [
-            "docker",
-            "build",
-            "-t",
-            template,
-            template_path
+            "docker-compose",
+            "build"
         ],
+        cwd=template_path,
         capture_output=True,
         text=True
     )
@@ -152,7 +153,7 @@ def deploy_template(template):
 
 @app.route("/api/start/<template>", methods=["POST"])
 def start_template(template):
-
+    template_path = f"/srv/platform/templates/{template}"
     if template not in VALID_CONTAINERS:
         return jsonify({"error": "invalid template"}), 400
 
@@ -181,19 +182,11 @@ def start_template(template):
 
         result = subprocess.run(
             [
-                "docker",
-                "run",
-                "-d",
-                "--name",
-                "zomboid",
-                "-e", "SERVER_NAME=ShazCloud",
-                "-e", "ADMIN_PASSWORD=changeme",
-                "-p", "16261:16261/udp",
-                "-p", "16262:16262/udp",
-                "-p", "8766:8766/udp",
-                "-p", "8767:8767/udp",
-                "zomboid"
+                "docker-compose",
+                "up",
+                "-d"
             ],
+            cwd=template_path,
             capture_output=True,
             text=True
         )

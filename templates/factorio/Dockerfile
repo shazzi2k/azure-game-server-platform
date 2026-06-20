@@ -1,7 +1,13 @@
 FROM ubuntu:22.04
 
-RUN apt update && \
-    apt install -y wget tar curl && \
+RUN dpkg --add-architecture i386 && \
+    apt update && \
+    apt install -y \
+    wget \
+    tar \
+    curl \
+    libc6:i386 \
+    libstdc++6:i386 && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /steamcmd && \
@@ -9,7 +15,7 @@ RUN mkdir -p /steamcmd && \
     wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz && \
     tar -xzf steamcmd_linux.tar.gz
 
-COPY start-server.sh /start-server.sh
-RUN chmod +x /start-server.sh
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-CMD ["/start-server.sh"]
+CMD ["/start.sh"]
