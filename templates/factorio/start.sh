@@ -12,7 +12,7 @@ if [ ! -f /factorio/bin/x64/factorio ]; then
     /steamcmd/steamcmd.sh \
         +force_install_dir /factorio \
         +login anonymous \
-        +app_update 600760 validate \
+        +app_update 427520 validate \
         +quit
 fi
 

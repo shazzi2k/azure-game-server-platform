@@ -7,8 +7,8 @@ echo "Starting 7 Days to Die server..."
 if [ ! -f /home/steam/7days/startserver.sh ]; then
     echo "Installing 7DTD server..."
     /steamcmd/steamcmd.sh +force_install_dir /home/steam/7days \
-        +login anonymous\
-        +app_update 294420  \
+        +login anonymous \
+        +app_update 294420 validate  \
         +quit
 fi
 
